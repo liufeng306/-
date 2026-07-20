@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>政治 - 考研学习网站</title>
+  <link rel="stylesheet" href="/static/css/style.css">
+</head>
+<body>
+  <nav class="navbar">
+    <a href="/" class="navbar-brand">📚 考研学习网站</a>
+    <ul class="navbar-links">
+      <li><a href="/plan">考研计划</a></li>
+      <li><a href="/vocabulary">英语词汇</a></li>
+      <li><a href="/ai">AI助手</a></li>
+    </ul>
+  </nav>
+
+  <main class="container">
+    <a href="/" class="back-link">← 返回首页</a>
+
+    <div class="page-header">
+      <h1>🏛️ 政治</h1>
+      <p class="subtitle">马克思主义基本原理 · 毛泽东思想 · 中国近现代史 · 思修法基</p>
+    </div>
+
+    <!-- 考试大纲 -->
+    <div class="content-section">
+      <h2 class="section-title">📋 考试大纲</h2>
+      <ul class="syllabus-list">
+        <li><span class="bullet" style="background:#ef4444"></span><strong>马原</strong>：哲学（唯物论/认识论/辩证法）、政治经济学、科学社会主义</li>
+        <li><span class="bullet" style="background:#ef4444"></span><strong>毛中特</strong>：毛泽东思想概论、习近平新时代中国特色社会主义思想</li>
+        <li><span class="bullet" style="background:#ef4444"></span><strong>史纲</strong>：中国近现代史时间线、重要事件、人物、思想</li>
+        <li><span class="bullet" style="background:#ef4444"></span><strong>思修法基</strong>：思想修养、道德修养、法律基础</li>
+        <li><span class="bullet" style="background:#ef4444"></span><strong>时政</strong>：当年国内外重大时事政治</li>
+      </ul>
+    </div>
+
+    <!-- B站视频（紧凑列表） -->
+    <div class="content-section">
+      <h2 class="section-title">🎬 B站视频课程</h2>
+      {% if video_groups %}
+      {% for teacher, teacher_videos in video_groups.items() %}
+      <div class="video-group">
+        <button class="video-group-header" onclick="this.classList.toggle('collapsed')">
+          <span class="toggle-icon">▼</span> {{ teacher }}（{{ teacher_videos|length }}个视频）
+        </button>
+        <div class="video-compact-list">
+          {% for video in teacher_videos %}
+          <div class="video-compact-item">
+            <div class="video-meta">
+              <span class="play-icon">▶</span>
+              <span class="video-title" title="{{ video.title }}">{{ video.title }}</span>
+              <span class="video-up">{{ video.up }}</span>
+              <span class="video-level">{{ video.level }}</span>
+            </div>
+            <a class="video-compact-link" href="{{ video.url }}" target="_blank">观看</a>
+          </div>
+          {% endfor %}
+        </div>
+      </div>
+      {% endfor %}
+      {% else %}
+      <p style="color:var(--text-muted)">暂无视频数据</p>
+      {% endif %}
+    </div>
+
+    <!-- 真题下载（按年份折叠） -->
+    <div class="content-section">
+      <h2 class="section-title">📥 真题下载</h2>
+      {% if pdfs %}
+      {% for group in pdfs %}
+      <div class="year-group">
+        <button class="year-group-header" onclick="this.classList.toggle('collapsed')">
+          <span class="toggle-icon">▼</span> 📅 {{ group.year }}年（{{ group.files|length }}份）
+        </button>
+        <div class="year-file-list">
+          {% for pdf in group.files %}
+          <div class="download-item">
+            <div class="file-info">
+              <span class="file-icon">📄</span>
+              <div>
+                <div class="file-name">{{ pdf.name }}</div>
+                <div class="file-meta">PDF · {{ pdf.size }}</div>
+              </div>
+            </div>
+            <a href="/pdfs/politics/{{ pdf.name }}" class="download-btn" target="_blank">下载</a>
+          </div>
+          {% endfor %}
+        </div>
+      </div>
+      {% endfor %}
+      {% else %}
+      <p style="color:var(--text-muted)">暂无PDF资料</p>
+      {% endif %}
+    </div>
+  </main>
+
+  <script src="/static/js/main.js"></script>
+</body>
+</html>

@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>英语词汇 - 考研学习网站</title>
+  <link rel="stylesheet" href="/static/css/style.css">
+</head>
+<body>
+  <nav class="navbar">
+    <a href="/" class="navbar-brand">📚 考研学习网站</a>
+    <ul class="navbar-links">
+      <li><a href="/plan">考研计划</a></li>
+      <li><a href="/vocabulary" class="active">英语词汇</a></li>
+      <li><a href="/ai">AI助手</a></li>
+    </ul>
+  </nav>
+
+  <main class="container">
+    <a href="/" class="back-link">← 返回首页</a>
+
+    <div class="page-header">
+      <h1>📖 英语词汇本</h1>
+      <p class="subtitle">点击卡片循环切换状态：未学 → Lv1认识(绿) → Lv2熟悉(黄) → Lv3掌握(橙) → Lv4精通(红) → 已掌握(蓝)</p>
+    </div>
+
+    <!-- 等级切换按钮 -->
+    <div class="vocab-level-tabs" id="vocab-level-tabs">
+      <button class="vocab-level-btn level-1 active" data-level="1">
+        🌟 Lv1 高频<span class="count">830词</span>
+      </button>
+      <button class="vocab-level-btn level-2" data-level="2">
+        📗 Lv2 中高频<span class="count">1383词</span>
+      </button>
+      <button class="vocab-level-btn level-3" data-level="3">
+        📙 Lv3 中频<span class="count">1935词</span>
+      </button>
+      <button class="vocab-level-btn level-4" data-level="4">
+        📕 Lv4 低频<span class="count">1382词</span>
+      </button>
+    </div>
+
+    <!-- 搜索框 -->
+    <div class="search-box">
+      <input type="text" id="vocab-search" placeholder="搜索单词或中文释义...">
+    </div>
+
+    <!-- 词汇统计条 -->
+    <div class="vocab-stats-bar">
+      当前显示 <span class="count" id="display-count">{{ words|length }}</span> 个词汇
+    </div>
+
+    <!-- 词汇卡片网格 -->
+    <div class="vocab-grid" id="vocab-grid">
+      {% for word in words %}
+      <div class="vocab-card level-{{ word.level }}" data-level="{{ word.level }}" data-state="0">
+        <span class="word">{{ word.word }}</span>
+        {% if word.phonetic %}
+        <div class="phonetic">{{ word.phonetic }}</div>
+        {% endif %}
+        <div class="meaning">{{ word.translation }}</div>
+        <span class="state-badge"></span>
+      </div>
+      {% endfor %}
+    </div>
+  </main>
+
+  <script src="/static/js/main.js"></script>
+  <script>
+    // 等级切换
+    document.querySelectorAll('.vocab-level-btn').forEach(btn => {
+      btn.addEventListener('click', function() {
+        const level = this.dataset.level;
+        document.querySelectorAll('.vocab-level-btn').forEach(b => b.classList.remove('active'));
+        this.classList.add('active');
+        // 跳转路由
+        window.location.href = '/vocabulary/' + level;
+      });
+    });
+
+    // 卡片点击循环切换状态：0→1→2→3→4→5→0
+    const stateLabels = ['', '认识', '熟悉', '掌握', '精通', '已掌握'];
+    const stateColors = {
+      1: { bg: '#f0fdf4', border: '#22c55e' },
+      2: { bg: '#fefce8', border: '#eab308' },
+      3: { bg: '#fff7ed', border: '#f97316' },
+      4: { bg: '#fef2f2', border: '#ef4444' },
+      5: { bg: '#eff6ff', border: '#3b82f6' }
+    };
+
+    document.querySelectorAll('.vocab-card').forEach(card => {
+      card.addEventListener('click', function() {
+        let state = parseInt(this.dataset.state);
+        state = (state + 1) % 6; // 0→1→2→3→4→5→0
+        this.dataset.state = state;
+
+        // 移除所有状态类
+        this.classList.remove('state-1','state-2','state-3','state-4','state-5');
+
+        if (state > 0) {
+          this.classList.add('state-' + state);
+          this.style.background = stateColors[state].bg;
+          this.style.borderColor = stateColors[state].border;
+          this.querySelector('.state-badge').textContent = stateLabels[state];
+          this.querySelector('.state-badge').style.display = 'inline-block';
+          this.querySelector('.state-badge').style.background = stateColors[state].bg;
+          this.querySelector('.state-badge').style.color = stateColors[state].border;
+        } else {
+          // 恢复默认
+          this.style.background = '';
+          this.style.borderColor = '';
+          this.querySelector('.state-badge').style.display = 'none';
+        }
+      });
+    });
+
+    // 搜索过滤
+    const searchInput = document.getElementById('vocab-search');
+    const cards = document.querySelectorAll('#vocab-grid .vocab-card');
+    searchInput.addEventListener('input', function() {
+      const q = this.value.trim().toLowerCase();
+      let visible = 0;
+      cards.forEach(card => {
+        const word = card.querySelector('.word').textContent.toLowerCase();
+        const meaning = card.querySelector('.meaning').textContent.toLowerCase();
+        const match = word.includes(q) || meaning.includes(q);
+        card.style.display = match ? '' : 'none';
+        if (match) visible++;
+      });
+      document.getElementById('display-count').textContent = visible;
+    });
+  </script>
+</body>
+</html>

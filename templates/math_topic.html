@@ -1,0 +1,8 @@
+{% extends "base.html" %}
+{% block title %}{{ topic }} - 数学{% endblock %}
+{% block content %}
+<div class="card">
+    <h2>📐 {{ topic }}</h2>
+    <div>{{ content | safe }}</div>
+</div>
+{% endblock %}

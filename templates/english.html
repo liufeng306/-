@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>英语二 - NEPU考研学习平台</title>
+  <link rel="stylesheet" href="/static/css/style.css">
+</head>
+<body>
+  <nav class="navbar">
+    <a href="/" class="navbar-brand">📚 考研学习网站</a>
+    <ul class="navbar-links">
+      <li><a href="/plan">考研计划</a></li>
+      <li><a href="/vocabulary">英语词汇</a></li>
+      <li><a href="/ai">AI助手</a></li>
+    </ul>
+  </nav>
+
+  <main class="container">
+    <a href="/" class="back-link">← 返回首页</a>
+
+    <div class="page-header">
+      <h1>📝 英语二</h1>
+      <p class="subtitle">完形 · 阅读A · 新题型 · 翻译 · 写作 · 100分 / 180分钟</p>
+    </div>
+
+    <!-- 考试大纲 -->
+    <div class="content-section">
+      <h2 class="section-title">📋 考试大纲</h2>
+      <ul class="syllabus-list">
+        <li><span class="bullet" style="background:#22c55e"></span><strong>题型分值</strong>：完形10、阅读A 40、新题型10、翻译15、写作25分（以当年大纲为准）</li>
+        <li><span class="bullet" style="background:#22c55e"></span><strong>完形填空</strong>：词汇辨析、语法结构、语篇理解</li>
+        <li><span class="bullet" style="background:#22c55e"></span><strong>阅读理解</strong>：主旨大意、细节推断、词义猜测、观点态度</li>
+        <li><span class="bullet" style="background:#22c55e"></span><strong>写作</strong>：小作文（书信/通知）、大作文（图表描述+议论）</li>
+        <li><span class="bullet" style="background:#22c55e"></span><strong>翻译</strong>：长难句拆分、意译重组</li>
+      </ul>
+    </div>
+
+    <!-- B站视频（紧凑列表） -->
+    <div class="content-section">
+      <h2 class="section-title">🎬 B站视频课程</h2>
+      {% if video_groups %}
+      {% for teacher, teacher_videos in video_groups.items() %}
+      <div class="video-group">
+        <button class="video-group-header" onclick="this.classList.toggle('collapsed')">
+          <span class="toggle-icon">▼</span> {{ teacher }}（{{ teacher_videos|length }}个视频）
+        </button>
+        <div class="video-compact-list">
+          {% for video in teacher_videos %}
+          <div class="video-compact-item">
+            <div class="video-meta">
+              <span class="play-icon">▶</span>
+              <span class="video-title" title="{{ video.title }}">{{ video.title }}</span>
+              <span class="video-up">{{ video.up }}</span>
+              <span class="video-level">{{ video.level }}</span>
+            </div>
+            <a class="video-compact-link" href="{{ video.url }}" target="_blank">观看</a>
+          </div>
+          {% endfor %}
+        </div>
+      </div>
+      {% endfor %}
+      {% else %}
+      <p style="color:var(--text-muted)">暂无视频数据</p>
+      {% endif %}
+    </div>
+
+    <!-- 真题下载（按年份折叠） -->
+    <div class="content-section">
+      <h2 class="section-title">📥 真题与解析</h2>
+      <p style="color:var(--text-muted)">仅显示英语二且来源、版权状态已核验的资料；服务器中的英语一文件不作为本路线学习内容。</p>
+      {% if pdfs %}
+      {% for group in pdfs %}
+      <div class="year-group">
+        <button class="year-group-header" onclick="this.classList.toggle('collapsed')">
+          <span class="toggle-icon">▼</span> 📅 {{ group.year }}年（{{ group.files|length }}份）
+        </button>
+        <div class="year-file-list">
+          {% for pdf in group.files %}
+          <div class="download-item">
+            <div class="file-info">
+              <span class="file-icon">📄</span>
+              <div>
+                <div class="file-name">{{ pdf.name }}</div>
+                <div class="file-meta">PDF · {{ pdf.size }}</div>
+              </div>
+            </div>
+            <a href="/pdfs/english/{{ pdf.name }}" class="download-btn" target="_blank">下载</a>
+          </div>
+          {% endfor %}
+        </div>
+      </div>
+      {% endfor %}
+      {% else %}
+      <p style="color:var(--text-muted)">暂无PDF资料</p>
+      {% endif %}
+    </div>
+
+    <!-- 快捷入口 -->
+    <div class="content-section" style="text-align: center; padding: 2rem;">
+      <p style="color: var(--text-muted); margin-bottom: 1rem;">想系统背诵词汇？试试智能词汇本</p>
+      <a href="/vocabulary" class="download-btn" style="background: #22c55e;">📖 进入词汇本</a>
+    </div>
+  </main>
+
+  <script src="/static/js/main.js"></script>
+</body>
+</html>

@@ -1,0 +1,117 @@
+[
+  {
+    "name": "东北石油大学研究生院 - 招生简章",
+    "url": "http://yjsb.nepu.edu.cn/zsgz/zsjz.htm",
+    "description": "东北石油大学研究生招生简章，含2026年招生章程、报名条件、学费标准",
+    "category": "school"
+  },
+  {
+    "name": "东北石油大学研究生院 - 招生信息",
+    "url": "http://yjsb.nepu.edu.cn/index/zsxx.htm",
+    "description": "东北石油大学研究生招生信息汇总，含调剂公告、录取分数线",
+    "category": "school"
+  },
+  {
+    "name": "东北石油大学研究生院 - 历年招生信息",
+    "url": "http://yjsb.nepu.edu.cn/zsgz/lnzsxx.htm",
+    "description": "东北石油大学历年研究生招生信息、分数线、录取情况查询",
+    "category": "school"
+  },
+  {
+    "name": "电气信息工程学院 - 研究生招生",
+    "url": "https://dqxxgcxy.nepu.edu.cn/yjsjy/ssyjs/zsjz.htm",
+    "description": "东北石油大学电气信息工程学院研究生招生信息发布页，含导师介绍、初试科目、复试科目",
+    "category": "school"
+  },
+
+  {
+    "name": "中国研究生招生信息网（官方）",
+    "url": "https://yz.chsi.com.cn/",
+    "description": "教育部官方研招平台，提供报名、调剂、录取信息，含全国院校专业目录查询",
+    "category": "official"
+  },
+  {
+    "name": "学信网",
+    "url": "https://www.chsi.com.cn/",
+    "description": "学历查询、学籍学历认证官方平台，查验本科/研究生学籍",
+    "category": "official"
+  },
+  {
+    "name": "考研网",
+    "url": "https://www.kaoyan.cn/",
+    "description": "考研资讯、复习经验、真题资料综合性平台，含院校简章汇总",
+    "category": "info"
+  },
+  {
+    "name": "考研帮 - 院校信息库",
+    "url": "https://www.kaoyan.com/",
+    "description": "考研帮院校信息库，含各高校报录比、参考书目、真题回忆",
+    "category": "info"
+  },
+  {
+    "name": "新东方在线考研",
+    "url": "https://www.koolearn.com/kaoyan/",
+    "description": "新东方旗下考研学习平台，含公共课/专业课视频课程、复习规划",
+    "category": "info"
+  },
+  {
+    "name": "文都网校 - 考研",
+    "url": "https://www.wenduedu.com/kaoyan/",
+    "description": "文都考研，含政治/英语/数学/专业课视频及复习资料",
+    "category": "info"
+  },
+  {
+    "name": "B站考研区",
+    "url": "https://www.bilibili.com/v/popular/history/?tab=2",
+    "description": "B站考研相关视频资源区，含各科目免费课程",
+    "category": "video"
+  },
+  {
+    "name": "电路原理 知识点精讲 - B站",
+    "url": "https://www.bilibili.com/video/BV1F7411a7iV/",
+    "description": "石群老师主讲电路（邱关源第5版），80集全，适合零基础复习",
+    "category": "video"
+  },
+  {
+    "name": "自动控制原理 精讲 - B站",
+    "url": "https://www.bilibili.com/video/BV1z7411Z7VY/",
+    "description": "自动控制原理系统讲解，含经典控制理论部分",
+    "category": "video"
+  },
+  {
+    "name": "王道论坛 - 408计算机考研",
+    "url": "https://www.cskaoyan.com/",
+    "description": "王道论坛计算机考研资料区，提供408数据结构、操作系统、计算机网络等复习资料",
+    "category": "major_408"
+  },
+  {
+    "name": "天勤论坛 - 408计算机考研",
+    "url": "https://www.csbiji.com/",
+    "description": "天勤计算机考研论坛，提供408数据结构等复习资料和经验分享",
+    "category": "major_408"
+  },
+  {
+    "name": "东北石油大学 817电子技术基础考试大纲",
+    "url": "https://dqxxgcxy.nepu.edu.cn/info/1045/3741.htm",
+    "description": "085801电气工程专业学位初试科目：817电子技术基础（含模拟及数字电路）；请以最新年度大纲为准。",
+    "category": "school_major"
+  },
+  {
+    "name": "考研数学一历年真题PDF (1987-2024) - GitHub",
+    "url": "https://github.com/JimmyKudo16/KaoYan-Math_1",
+    "description": "覆盖1987-2024年考研数学一历年真题及详解，PDF版本可打印，含答案",
+    "category": "pdf_math"
+  },
+  {
+    "name": "考研英语一历年真题PDF (1980-2020) - GitHub",
+    "url": "https://github.com/m2kar/KaoYan-English",
+    "description": "覆盖1980-2020年考研英语一历年真题，含手译版",
+    "category": "pdf_english"
+  },
+  {
+    "name": "考研英语一2022黄皮书（百度网盘）",
+    "url": "https://pan.baidu.com/s/1wFvQoNzEA-Gq5Gaz2b0URg",
+    "description": "百度网盘：提取码c475，含张剑黄皮书历年真题解析(2009-2021)、颉斌斌真题等",
+    "category": "pdf_english"
+  }
+]

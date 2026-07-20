@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>考研学习平台 - 首页</title>
+  <link rel="stylesheet" href="/static/css/style.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+</head>
+<body>
+  <!-- 导航栏 -->
+  <nav class="navbar">
+    <a href="/" class="navbar-brand">📚 考研学习平台</a>
+    <ul class="navbar-links">
+      <li><a href="/plan">📅 考研计划</a></li>
+      <li><a href="/vocabulary">📖 英语词汇</a></li>
+      <li><a href="/ai">🤖 AI助手</a></li>
+    </ul>
+    <div class="navbar-external">
+      <a href="http://yjsb.nepu.edu.cn/zsgz/zsjz.htm" target="_blank">东北石油大学研究生院</a>
+      <a href="https://www.kaoyan.cn/" target="_blank">考研网</a>
+    </div>
+  </nav>
+
+  <!-- 主内容 -->
+  <main class="container">
+    <div class="hero-title">
+      <h1>2027 考研 · 东北石油大学电气工程</h1>
+      <p>085801 电气工程（专硕） · 政治 / 英语二 / 数学二 / 817电子技术基础</p>
+    </div>
+
+    <!-- 4科目大卡片 -->
+    <div class="subject-cards">
+      <a href="/math" class="subject-card math">
+        <div class="icon">📐</div>
+        <h3>数学二</h3>
+        <p>高等数学 · 线性代数<br>150分 / 180分钟</p>
+      </a>
+      <a href="/english" class="subject-card english">
+        <div class="icon">📝</div>
+        <h3>英语二</h3>
+        <p>阅读理解 · 翻译写作<br>100分 / 180分钟</p>
+      </a>
+      <a href="/politics" class="subject-card politics">
+        <div class="icon">🏛️</div>
+        <h3>政治</h3>
+        <p>马原 · 毛中特<br>史纲 · 思修法基</p>
+      </a>
+      <a href="/major" class="subject-card major">
+        <div class="icon">⚡</div>
+        <h3>817 专业课</h3>
+        <p>模拟电子技术 · 数字电子技术<br>150分 / 180分钟</p>
+      </a>
+    </div>
+
+    <!-- 快捷入口 -->
+    <div style="margin-top: 3rem; display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 1.5rem;">
+      <div class="content-section">
+        <h3 class="section-title">📅 考研计划</h3>
+        <p style="color: var(--text-secondary); margin-bottom: 1rem; line-height: 1.7;">基础阶段 → 强化阶段 → 冲刺阶段<br>三阶段科学规划，稳步提升</p>
+        <a href="/plan" class="download-btn">查看详细计划</a>
+      </div>
+      <div class="content-section">
+        <h3 class="section-title">📖 英语词汇</h3>
+        <p style="color: var(--text-secondary); margin-bottom: 1rem; line-height: 1.7;">四级分级背诵，智能记忆追踪<br>高频词汇 → 低频词汇循序渐近</p>
+        <a href="/vocabulary" class="download-btn">开始背词</a>
+      </div>
+      <div class="content-section">
+        <h3 class="section-title">🤖 AI助手</h3>
+        <p style="color: var(--text-secondary); margin-bottom: 1rem; line-height: 1.7;">智能答疑解惑<br>学习规划建议 · 备考策略指导</p>
+        <a href="/ai" class="download-btn">咨询AI助手</a>
+      </div>
+    </div>
+  </main>
+
+  <script src="/static/js/main.js"></script>
+</body>
+</html>

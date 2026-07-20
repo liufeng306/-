@@ -1,0 +1,53 @@
+{% extends "base.html" %}
+{% block title %}Level {{ level }} - 英语词汇{% endblock %}
+{% block content %}
+<div class="card">
+    <h2>📚 Level {{ level }} {% if level == 1 %}CET-4{% elif level == 2 %}CET-6{% elif level == 3 %}TEM-4{% else %}TEM-8{% endif %} 词汇列表</h2>
+    <div style="margin: 1rem 0; display: flex; gap: 1rem; align-items: center;">
+        <span style="color:#666;">共 {{ words|length }} 个词汇</span>
+        <a href="/english/level/{{ level }}/download" class="btn">📥 下载 PDF</a>
+        <button onclick="generatePdfs({{ level }})" class="btn" id="genBtn">🔄 生成/更新 PDF</button>
+    </div>
+    <div id="status" style="margin-bottom:1rem; color:#27ae60;"></div>
+    <table style="width:100%; border-collapse:collapse; font-size:0.9rem;">
+        <thead>
+            <tr style="background:#ecf0f1; text-align:left;">
+                <th style="padding:0.6rem;">#</th>
+                <th style="padding:0.6rem;">单词</th>
+                <th style="padding:0.6rem;">音标</th>
+                <th style="padding:0.6rem;">词性</th>
+                <th style="padding:0.6rem;">中文释义</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for w in words %}
+            <tr style="border-bottom:1px solid #eee;">
+                <td style="padding:0.5rem;">{{ loop.index }}</td>
+                <td style="padding:0.5rem; font-weight:bold; color:#2c3e50;">{{ w.word }}</td>
+                <td style="padding:0.5rem; color:#888;">{{ w.pronunciation }}</td>
+                <td style="padding:0.5rem; color:#666;">{{ w.part_of_speech }}</td>
+                <td style="padding:0.5rem;">{{ w.meaning }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+<script>
+function generatePdfs(level) {
+    var btn = document.getElementById('genBtn');
+    var status = document.getElementById('status');
+    btn.disabled = true;
+    status.textContent = '正在生成 PDF，请稍候...';
+    fetch('/api/generate_pdfs')
+        .then(r => r.json())
+        .then(d => {
+            status.textContent = d.message || d.status;
+            btn.disabled = false;
+        })
+        .catch(e => {
+            status.textContent = '生成失败: ' + e;
+            btn.disabled = false;
+        });
+}
+</script>
+{% endblock %}

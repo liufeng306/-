@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>数学二 - NEPU考研学习平台</title>
+  <link rel="stylesheet" href="/static/css/style.css">
+</head>
+<body>
+  <nav class="navbar">
+    <a href="/" class="navbar-brand">📚 考研学习网站</a>
+    <ul class="navbar-links">
+      <li><a href="/plan">考研计划</a></li>
+      <li><a href="/vocabulary">英语词汇</a></li>
+      <li><a href="/ai">AI助手</a></li>
+    </ul>
+  </nav>
+
+  <main class="container">
+    <a href="/" class="back-link">← 返回首页</a>
+
+    <div class="page-header">
+      <h1>📐 数学二</h1>
+      <p class="subtitle">高等数学 · 线性代数 · 150分 / 180分钟</p>
+    </div>
+
+    <!-- 考试大纲 -->
+    <div class="content-section">
+      <h2 class="section-title">📋 考试大纲</h2>
+      <ul class="syllabus-list">
+        <li><span class="bullet" style="background:#3b82f6"></span><strong>试卷结构</strong>：选择题50分、填空题30分、解答题70分；以当年大纲为准</li>
+        <li><span class="bullet" style="background:#3b82f6"></span><strong>高等数学</strong>：函数极限、一元微积分、多元微积分、常微分方程、无穷级数</li>
+        <li><span class="bullet" style="background:#3b82f6"></span><strong>线性代数</strong>：行列式、矩阵、向量、特征值与特征向量、二次型</li>
+        <li><span class="bullet" style="background:#3b82f6"></span><strong>学习闭环</strong>：定义与条件 → 例题 → 15道同类题 → 隔天错题重做 → 7天限时再测</li>
+      </ul>
+    </div>
+
+    <!-- B站视频（按老师分组，紧凑列表） -->
+    <div class="content-section">
+      <h2 class="section-title">🎬 B站视频课程</h2>
+      {% if videos %}
+      {% for teacher, teacher_videos in video_groups.items() %}
+      <div class="video-group">
+        <button class="video-group-header" onclick="this.classList.toggle('collapsed')">
+          <span class="toggle-icon">▼</span> {{ teacher }}（{{ teacher_videos|length }}个视频）
+        </button>
+        <div class="video-compact-list">
+          {% for video in teacher_videos %}
+          <div class="video-compact-item">
+            <div class="video-meta">
+              <span class="play-icon">▶</span>
+              <span class="video-title" title="{{ video.title }}">{{ video.title }}</span>
+              <span class="video-up">{{ video.up }}</span>
+              <span class="video-level">{{ video.level }}</span>
+            </div>
+            <a class="video-compact-link" href="{{ video.url }}" target="_blank">观看</a>
+          </div>
+          {% endfor %}
+        </div>
+      </div>
+      {% endfor %}
+      {% else %}
+      <p style="color:var(--text-muted)">暂无视频数据</p>
+      {% endif %}
+    </div>
+
+    <!-- 真题下载（按年份折叠） -->
+    <div class="content-section">
+      <h2 class="section-title">📥 真题与解析</h2>
+      <p style="color:var(--text-muted)">仅显示已核验为数学二且具有合法使用权的资料；当前服务器中的数学一资料不作为本路线学习内容。</p>
+      {% if pdfs %}
+      {% for group in pdfs %}
+      <div class="year-group">
+        <button class="year-group-header" onclick="this.classList.toggle('collapsed')">
+          <span class="toggle-icon">▼</span> 📅 {{ group.year }}年（{{ group.files|length }}份）
+        </button>
+        <div class="year-file-list">
+          {% for pdf in group.files %}
+          <div class="download-item">
+            <div class="file-info">
+              <span class="file-icon">📄</span>
+              <div>
+                <div class="file-name">{{ pdf.name }}</div>
+                <div class="file-meta">PDF · {{ pdf.size }}</div>
+              </div>
+            </div>
+            <a href="/pdfs/math/{{ pdf.name }}" class="download-btn" target="_blank">下载</a>
+          </div>
+          {% endfor %}
+        </div>
+      </div>
+      {% endfor %}
+      {% else %}
+      <p style="color:var(--text-muted)">暂无PDF资料</p>
+      {% endif %}
+    </div>
+  </main>
+
+  <script src="/static/js/main.js"></script>
+</body>
+</html>

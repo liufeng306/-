@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>考研计划 - 考研学习网站</title>
+  <link rel="stylesheet" href="/static/css/style.css">
+</head>
+<body>
+  <nav class="navbar">
+    <a href="/" class="navbar-brand">📚 考研学习网站</a>
+    <ul class="navbar-links">
+      <li><a href="/plan" class="active">考研计划</a></li>
+      <li><a href="/vocabulary">英语词汇</a></li>
+      <li><a href="/ai">AI助手</a></li>
+    </ul>
+  </nav>
+
+  <main class="container">
+    <a href="/" class="back-link">← 返回首页</a>
+
+    <div class="page-header">
+      <h1>📅 考研复习计划</h1>
+      <p class="subtitle">基础 → 强化 → 冲刺 三阶段科学备考</p>
+      {% if plan %}
+      <p class="subtitle" style="font-size:0.9rem;color:var(--text-muted)">
+        {{ plan.overview }} | {{ plan.total_duration }}
+      </p>
+      {% endif %}
+    </div>
+
+    {% if plan and plan.phases %}
+    <!-- 阶段标签 -->
+    <div class="plan-tabs">
+      {% for phase in plan.phases %}
+      <button class="plan-tab {% if loop.first %}active{% endif %}" data-phase="phase{{ loop.index }}">{{ phase.phase }} ({{ phase.period }})</button>
+      {% endfor %}
+    </div>
+
+    {% for phase in plan.phases %}
+    <div class="plan-table-wrapper" data-phase="phase{{ loop.index }}" {% if not loop.first %}style="display:none"{% endif %}>
+      <table class="plan-table">
+        <thead>
+          <tr>
+            <th>科目</th>
+            <th>目标</th>
+            <th>重点任务</th>
+            <th>推荐资料</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% if phase.math %}
+          <tr>
+            <td>📐 数学</td>
+            <td>{{ phase.math.goal }}</td>
+            <td>
+              <ul style="margin:0;padding-left:1.2em">
+                {% for task in phase.math.tasks %}
+                <li>{{ task }}</li>
+                {% endfor %}
+              </ul>
+            </td>
+            <td>{{ phase.math.materials|join('、') if phase.math.materials else '-' }}</td>
+          </tr>
+          {% endif %}
+          {% if phase.english %}
+          <tr>
+            <td>📝 英语</td>
+            <td>{{ phase.english.goal }}</td>
+            <td>
+              <ul style="margin:0;padding-left:1.2em">
+                {% for task in phase.english.tasks %}
+                <li>{{ task }}</li>
+                {% endfor %}
+              </ul>
+            </td>
+            <td>{{ phase.english.materials|join('、') if phase.english.materials else '-' }}</td>
+          </tr>
+          {% endif %}
+          {% if phase.politics %}
+          <tr>
+            <td>🏛️ 政治</td>
+            <td>{{ phase.politics.goal }}</td>
+            <td>
+              <ul style="margin:0;padding-left:1.2em">
+                {% for task in phase.politics.tasks %}
+                <li>{{ task }}</li>
+                {% endfor %}
+              </ul>
+            </td>
+            <td>{{ phase.politics.materials|join('、') if phase.politics.materials else '-' }}</td>
+          </tr>
+          {% endif %}
+          {% if phase.major %}
+          <tr>
+            <td>⚡ 专业课</td>
+            <td>{{ phase.major.goal }}</td>
+            <td>
+              <ul style="margin:0;padding-left:1.2em">
+                {% for task in phase.major.tasks %}
+                <li>{{ task }}</li>
+                {% endfor %}
+              </ul>
+            </td>
+            <td>{{ phase.major.materials|join('、') if phase.major.materials else '-' }}</td>
+          </tr>
+          {% endif %}
+        </tbody>
+      </table>
+    </div>
+    {% endfor %}
+    {% else %}
+    <p style="color:var(--text-muted)">暂无计划数据</p>
+    {% endif %}
+
+    <!-- 每日作息表 -->
+    <div class="content-section" style="margin-top: 2rem;">
+      <h2 class="section-title">⏰ 每日作息参考</h2>
+      {% if plan and plan.daily_schedule_example %}
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:1rem;margin-bottom:1.5rem">
+        <div>
+          <h4 style="color:var(--accent-blue);margin-bottom:0.5rem">📅 工作日</h4>
+          {% if plan.daily_schedule_example.weekdays %}
+          {% for slot in plan.daily_schedule_example.weekdays %}
+          <p style="margin:0.3rem 0;color:var(--text-muted)">• {{ slot }}</p>
+          {% endfor %}
+          {% endif %}
+        </div>
+        <div>
+          <h4 style="color:var(--accent-blue);margin-bottom:0.5rem">📅 周末</h4>
+          {% if plan.daily_schedule_example.weekends %}
+          {% for slot in plan.daily_schedule_example.weekends %}
+          <p style="margin:0.3rem 0;color:var(--text-muted)">• {{ slot }}</p>
+          {% endfor %}
+          {% endif %}
+        </div>
+      </div>
+      {% endif %}
+
+      {% if plan and plan.key_reminders %}
+      <h4 style="color:var(--accent-red);margin-bottom:0.5rem">⚠️ 重要提醒</h4>
+      <ul style="color:var(--text-muted)">
+        {% for reminder in plan.key_reminders %}
+        <li>{{ reminder }}</li>
+        {% endfor %}
+      </ul>
+      {% endif %}
+    </div>
+  </main>
+
+  <script src="/static/js/main.js"></script>
+</body>
+</html>
