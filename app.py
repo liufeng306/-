@@ -50,22 +50,25 @@ def filter_videos(subject):
     all_links = load_json('links.json')
     return [v for v in all_links if v.get('subject') == subject]
 
+def curriculum():
+    return load_json('curriculum.json')
+
+def render_subject(key):
+    data = curriculum()
+    subject = data.get('subjects', {}).get(key)
+    if not subject:
+        return '科目不存在', 404
+    return render_template('subject.html', subject=subject, target=data.get('target', {}))
+
 # ─── 首页 ────────────────────────────────────────────────────────────────────
 @app.route('/')
 def index():
-    return render_template('index.html')
+    return render_template('index.html', curriculum=curriculum())
 
 # ─── 英语页面 ───────────────────────────────────────────────────────────────
 @app.route('/english')
 def english():
-    videos = filter_videos('english')
-    groups = {}
-    for v in videos:
-        t = v.get('teacher', '其他')
-        groups.setdefault(t, []).append(v)
-    # 历史目录包含英语一和来源未核验文件，不向英语二学习路径公开。
-    pdfs = []
-    return render_template('english.html', videos=videos, video_groups=groups, pdfs=pdfs)
+    return render_subject('english')
 
 @app.route('/english/level/<int:level>')
 def english_level(level):
@@ -87,15 +90,7 @@ def download_level_pdf(level):
 # ─── 数学页面 ───────────────────────────────────────────────────────────────
 @app.route('/math')
 def math():
-    videos = filter_videos('math')
-    # 按老师分组
-    groups = {}
-    for v in videos:
-        t = v.get('teacher', '其他')
-        groups.setdefault(t, []).append(v)
-    # 服务器历史目录含数学一文件，085801 仅允许审核后的数学二题目进入题库。
-    pdfs = []
-    return render_template('math.html', videos=videos, video_groups=groups, pdfs=pdfs)
+    return render_subject('math')
 
 @app.route('/math/topic/<topic>')
 def math_topic(topic):
@@ -109,42 +104,12 @@ def math_topic(topic):
 # ─── 政治页面 ───────────────────────────────────────────────────────────────
 @app.route('/politics')
 def politics():
-    videos = filter_videos('politics')
-    groups = {}
-    for v in videos:
-        t = v.get('teacher', '其他')
-        groups.setdefault(t, []).append(v)
-    # 未标注版权与年份来源的 PDF 不作为公开题库内容。
-    pdfs = []
-    return render_template('politics.html', videos=videos, video_groups=groups, pdfs=pdfs)
+    return render_subject('politics')
 
 # ─── 专业课页面 ──────────────────────────────────────────────────────────────
 @app.route('/major')
 def major():
-    all_links = load_json('links.json')
-    videos = [v for v in all_links if v.get('subject') in ('major', 'electronics', 'analog', 'digital')]
-    # 去重：按url保留唯一视频
-    seen_urls = set()
-    unique_videos = []
-    for v in videos:
-        url = v.get('url', '')
-        if url not in seen_urls:
-            seen_urls.add(url)
-            unique_videos.append(v)
-    videos = unique_videos
-    # 按老师分组
-    groups = {}
-    for v in videos:
-        t = v.get('teacher', '其他')
-        groups.setdefault(t, []).append(v)
-    pdfs = list_pdfs('817')
-    # 加载外部链接
-    all_external = load_json('external_links.json')
-    school_links = [l for l in all_external if l.get('category') in ('school', 'official')]
-    major_links = [l for l in all_external if l.get('category') in ('school_major', 'info')]
-    outline = load_json('major_817.json')
-    return render_template('major.html', videos=videos, video_groups=groups, pdfs=pdfs,
-                           school_links=school_links, major_links=major_links, outline=outline)
+    return render_subject('major')
 
 # ─── 词汇页面 ───────────────────────────────────────────────────────────────
 @app.route('/vocabulary')
@@ -170,12 +135,11 @@ def vocabulary_level(level):
 # ─── 计划页面 ───────────────────────────────────────────────────────────────
 @app.route('/plan')
 def plan():
-    plan_data = load_json('exam_plan.json')
-    return render_template('plan.html', plan=plan_data)
+    return render_template('plan.html', curriculum=curriculum())
 
 @app.route('/question-bank')
 def question_bank():
-    return render_template('question_bank.html', bank=load_json('question_bank.json'))
+    return render_template('question_bank.html', curriculum=curriculum())
 
 # ─── AI助手页面 ─────────────────────────────────────────────────────────────
 @app.route('/ai')
