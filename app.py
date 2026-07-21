@@ -173,6 +173,10 @@ def plan():
     plan_data = load_json('exam_plan.json')
     return render_template('plan.html', plan=plan_data)
 
+@app.route('/question-bank')
+def question_bank():
+    return render_template('question_bank.html', bank=load_json('question_bank.json'))
+
 # ─── AI助手页面 ─────────────────────────────────────────────────────────────
 @app.route('/ai')
 def ai():
