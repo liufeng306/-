@@ -63,7 +63,8 @@ def english():
     for v in videos:
         t = v.get('teacher', '其他')
         groups.setdefault(t, []).append(v)
-    pdfs = list_pdfs('english')
+    # 历史目录包含英语一和来源未核验文件，不向英语二学习路径公开。
+    pdfs = []
     return render_template('english.html', videos=videos, video_groups=groups, pdfs=pdfs)
 
 @app.route('/english/level/<int:level>')
@@ -92,7 +93,8 @@ def math():
     for v in videos:
         t = v.get('teacher', '其他')
         groups.setdefault(t, []).append(v)
-    pdfs = list_pdfs('math')
+    # 服务器历史目录含数学一文件，085801 仅允许审核后的数学二题目进入题库。
+    pdfs = []
     return render_template('math.html', videos=videos, video_groups=groups, pdfs=pdfs)
 
 @app.route('/math/topic/<topic>')
@@ -112,7 +114,8 @@ def politics():
     for v in videos:
         t = v.get('teacher', '其他')
         groups.setdefault(t, []).append(v)
-    pdfs = list_pdfs('politics')
+    # 未标注版权与年份来源的 PDF 不作为公开题库内容。
+    pdfs = []
     return render_template('politics.html', videos=videos, video_groups=groups, pdfs=pdfs)
 
 # ─── 专业课页面 ──────────────────────────────────────────────────────────────
